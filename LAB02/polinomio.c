@@ -32,7 +32,7 @@ void define_coeficiente(Polinomio pol, int grau, int coef) {
             novo->prox = pol;
             novo->antec = pol;
 
-        } else {
+        }else{
             No *atual = pol->prox;
             while(atual != pol && atual->valor.grau < grau) {
                 atual = atual->prox;
@@ -69,23 +69,23 @@ void soma(Polinomio res, Polinomio a, Polinomio b){
     zera(res);
 
     while(pont1 != a || pont2 != b){
-        if(pont1->valor.grau > pont2->valor.grau){  //caso o polinomio 1 for maior que o polinomio 2
+        if(pont1 == a && pont2 != b){
             define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
             pont2 = pont2->prox;
-        }else if(pont1->valor.grau < pont2->valor.grau){    //caso o polinomio 2 for maior que o polinomio 1
+        }else if(pont1 != a && pont2 == b){
             define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
             pont1 = pont1->prox;
-        }else if(pont1->valor.grau == pont2->valor.grau){   //caso os polinomios forem iguais
+        }else if(pont1->valor.grau > pont2->valor.grau){
+            define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
+            pont2 = pont2->prox;
+        }else if(pont1->valor.grau < pont2->valor.grau){
+            define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
+            pont1 = pont1->prox;
+        }else{
             int soma = pont1->valor.coef + pont2->valor.coef;
             define_coeficiente(res, pont1->valor.grau, soma);
             pont1 = pont1->prox;
             pont2 = pont2->prox;
-        }else if(pont1 == a){   //caso polinomio 1 chegue no nó cabeça
-            define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
-            pont2 = pont2->prox;
-        }else if(pont2 == b){   //caso polinomio 2 chegue no nó cabeça
-            define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
-            pont1 = pont1->prox;
         }
     }
 }
@@ -97,23 +97,17 @@ void subtrai(Polinomio res, Polinomio a, Polinomio b){
     zera(res);
 
     while(pont1 != a || pont2 != b){
-        if(pont1->valor.grau > pont2->valor.grau){  //caso o polinomio 1 for maior que o polinomio 2
-            define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
+        if(pont1 == a || pont1->valor.grau > pont2->valor.grau){
+            define_coeficiente(res, pont2->valor.grau, 0 - pont2->valor.coef);
             pont2 = pont2->prox;
-        }else if(pont1->valor.grau < pont2->valor.grau){    //caso o polinomio 2 for maior que o polinomio 1
+        }else if(pont2 == b ||pont1->valor.grau < pont2->valor.grau){
             define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
             pont1 = pont1->prox;
-        }else if(pont1->valor.grau == pont2->valor.grau){   //caso os polinomios forem iguais
+        }else if(pont1->valor.grau == pont2->valor.grau){
             int subtracao = pont1->valor.coef - pont2->valor.coef;
             define_coeficiente(res, pont1->valor.grau, subtracao);
             pont1 = pont1->prox;
             pont2 = pont2->prox;
-        }else if(pont1 == a){   //caso polinomio 1 chegue no nó cabeça
-            define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
-            pont2 = pont2->prox;
-        }else if(pont2 == b){   //caso polinomio 2 chegue no nó cabeça
-            define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
-            pont1 = pont1->prox;
         }
     }
 }
@@ -132,7 +126,7 @@ void imprime(Polinomio pol){
         if(atual != pol)
             printf(",");
     }
-    printf("]");
+    printf("]\n");
 }
 
 /* Desaloca toda a memória alocada da lista.
