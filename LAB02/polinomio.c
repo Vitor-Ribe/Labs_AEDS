@@ -3,7 +3,7 @@
 #include "polinomio.h"
 
 
-/* Inicializa um polinômio vazio. */
+/* Inicializa um polinÃ´mio vazio. */
 void inicializa_polinomio(Polinomio * ap_pol){
     *ap_pol = (No*)malloc(sizeof(No));
     if(*ap_pol != NULL){
@@ -16,7 +16,7 @@ void inicializa_polinomio(Polinomio * ap_pol){
 /* Define que o coeficiente de grau grau do polinomio pol eh igual a coef. Deve manter os
  * coeficientes ordenados por grau. */
 void define_coeficiente(Polinomio pol, int grau, int coef) {
-    if(coef == 0){
+    if(coef == 0){   //coeficiente 0 nÃ£o gera monomio
         return;
     }
 
@@ -38,7 +38,7 @@ void define_coeficiente(Polinomio pol, int grau, int coef) {
                 atual = atual->prox;
             }
 
-            // Inserir o novo nó antes do nó atual
+            // Inserir o novo nÃ³ antes do nÃ³ atual
             novo->prox = atual;
             novo->antec = atual->antec;
             atual->antec->prox = novo;
@@ -50,7 +50,7 @@ void define_coeficiente(Polinomio pol, int grau, int coef) {
 }
 
 
-/* Zera o polinomio, tornando-o um polinomio inicializado, mas igual a zero. Desaloca a memória liberada. */
+/* Zera o polinomio, tornando-o um polinomio inicializado, mas igual a zero. Desaloca a memÃ³ria liberada. */
 void zera(Polinomio pol){
     No *atual = pol->prox, *aux;
     while(atual != pol){
@@ -63,16 +63,16 @@ void zera(Polinomio pol){
 }
 
 /* Computa a soma dos polinomios a e b colocando o resultado em res.
- * Libera a memória anteriormente utilizada pelos nos descartados de res, e sobreescreve res. */
+ * Libera a memÃ³ria anteriormente utilizada pelos nos descartados de res, e sobreescreve res. */
 void soma(Polinomio res, Polinomio a, Polinomio b){
     No *pont1 = a->prox, *pont2 = b->prox;
     zera(res);
 
     while(pont1 != a || pont2 != b){
-        if(pont1 == a && pont2 != b){   //caso polinomio a volte ao nó cabeça
+        if(pont1 == a && pont2 != b){   //caso polinomio a volte ao nÃ³ cabeÃ§a
             define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
             pont2 = pont2->prox;
-        }else if(pont1 != a && pont2 == b){  //caso polinomio b volte ao nó cabeça
+        }else if(pont1 != a && pont2 == b){  //caso polinomio b volte ao nÃ³ cabeÃ§a
             define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
             pont1 = pont1->prox;
         }else if(pont1->valor.grau > pont2->valor.grau){    //caso grau de polinomio a for maior que polinomio b
@@ -91,16 +91,16 @@ void soma(Polinomio res, Polinomio a, Polinomio b){
 }
 
 /* Computa a subtracao dos polinomios a e b colocando o resultado em res.
- * Libera a memória anteriormente utilizada pelos nos descartados de res, e sobreescreve res. */
+ * Libera a memÃ³ria anteriormente utilizada pelos nos descartados de res, e sobreescreve res. */
 void subtrai(Polinomio res, Polinomio a, Polinomio b){
     No *pont1 = a->prox, *pont2 = b->prox;
     zera(res);
 
     while(pont1 != a || pont2 != b){
-        if(pont1 == a && pont2 != b){ //caso polinomio a volte ao nó cabeça
+        if(pont1 == a && pont2 != b){ //caso polinomio a volte ao nÃ³ cabeÃ§a
             define_coeficiente(res, pont2->valor.grau, pont2->valor.coef);
             pont2 = pont2->prox;
-        }else if(pont1 != a && pont2 == b){ //caso polinomio b volte ao nó cabeça
+        }else if(pont1 != a && pont2 == b){ //caso polinomio b volte ao nÃ³ cabeÃ§a
             define_coeficiente(res, pont1->valor.grau, pont1->valor.coef);
             pont1 = pont1->prox;
         }if(pont1->valor.grau > pont2->valor.grau){ //caso grau de polinomio a for maior que polinomio b
@@ -136,7 +136,7 @@ void imprime(Polinomio pol){
     printf("]\n");
 }
 
-/* Desaloca toda a memória alocada da lista.
+/* Desaloca toda a memÃ³ria alocada da lista.
  */
 void desaloca_polinomio(Polinomio *ap_pol){
     zera(*ap_pol);
