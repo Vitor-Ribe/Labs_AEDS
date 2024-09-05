@@ -6,8 +6,7 @@ void preencheVetor(int n, int vet[2][n]){
 }
 
 void subconj(int n, int M, int elem[][n]){
-    int limit_mask = (1<<n); // conjunto potencia
-    int melhorValor = 0;
+    int melhorValor = 0, limit_mask = (1<<n); // conjunto potencia
 
     for(int mask=0; mask<limit_mask; mask++){   // percorre todos os subconjuntos possiveis
         int totalPeso = 0, totalValor = 0;
@@ -17,21 +16,16 @@ void subconj(int n, int M, int elem[][n]){
                 totalPeso += elem[0][i];
                 totalValor += elem[1][i];
             }
-        if(totalPeso <= M && totalValor > melhorValor){ //  compara se o valor e o peso do subconjunto é o maior do conjunto
+        if(totalPeso <= M && totalValor > melhorValor) //  compara se o valor e o peso do subconjunto é o maior do conjunto
             melhorValor = totalValor;
-        }
     }
     printf("%d\n", melhorValor);
 }
 
 int main(){
     int n, M;
-
-    scanf("%d", &n);
-    if(n <= 0 || n > 20)
-        return -1;
-    scanf("%d", &M);
-    if(M <= 0 || M > 1000000)
+    scanf("%d %d", &n, &M);
+    if((n <= 0 || n > 20) || (M <= 0 || M > 1000000))   //  restricoes
         return -1;
 
     int elemento[2][n];
