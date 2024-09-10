@@ -8,3 +8,4 @@ Laboratórios da disciplina Algoritmos e estruturas de dados do 3º período de 
 - LAB03: Laboratório sobre a cobertura exata de conjuntos.
 - LAB04: Laboratório sobre o Problema da Mochila (Knapsack problem).
 - LAB05: Laboratório sobre Árvores de busca binária.
+- LAB06: Laboratório sobre operações aritméticas através de Árvores e Pilhas.
